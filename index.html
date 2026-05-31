@@ -1,11 +1,640 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>APEX — Онлайн Тренировки</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="design.css" />
 </head>
 <body>
-    <div>Привет сосед</div>
+
+  <!-- AUTH OVERLAY -->
+  <div id="authOverlay" class="auth-overlay active">
+    <div class="auth-bg-anim">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <div class="auth-box">
+      <div class="auth-logo">APEX</div>
+      <div class="auth-tagline">Твой путь начинается здесь</div>
+
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="login">Войти</button>
+        <button class="auth-tab" data-tab="register">Регистрация</button>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <form class="auth-form active" id="loginForm">
+        <div class="field-group">
+          <input type="email" id="loginEmail" placeholder=" " required />
+          <label for="loginEmail">Email</label>
+          <span class="field-line"></span>
+        </div>
+        <div class="field-group">
+          <input type="password" id="loginPassword" placeholder=" " required />
+          <label for="loginPassword">Пароль</label>
+          <span class="field-line"></span>
+        </div>
+        <div class="auth-error" id="loginError"></div>
+        <button type="submit" class="auth-btn">
+          <span>Войти</span>
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <p class="auth-hint">Демо: test@apex.com / apex123</p>
+      </form>
+
+      <!-- REGISTER FORM -->
+      <form class="auth-form" id="registerForm">
+        <div class="field-group">
+          <input type="text" id="regName" placeholder=" " required />
+          <label for="regName">Имя</label>
+          <span class="field-line"></span>
+        </div>
+        <div class="field-group">
+          <input type="email" id="regEmail" placeholder=" " required />
+          <label for="regEmail">Email</label>
+          <span class="field-line"></span>
+        </div>
+        <div class="field-group">
+          <input type="password" id="regPassword" placeholder=" " required />
+          <label for="regPassword">Пароль</label>
+          <span class="field-line"></span>
+        </div>
+        <div class="auth-error" id="regError"></div>
+        <button type="submit" class="auth-btn">
+          <span>Создать аккаунт</span>
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-logo">APEX</div>
+    <ul class="nav-links">
+      <li><a href="#hero" class="nav-link">Главная</a></li>
+      <li><a href="#about" class="nav-link">О нас</a></li>
+      <li><a href="#programs" class="nav-link">Программы</a></li>
+      <li><a href="#trainers" class="nav-link">Тренеры</a></li>
+      <li><a href="#stats" class="nav-link">Результаты</a></li>
+      <li><a href="#pricing" class="nav-link">Цены</a></li>
+      <li><a href="#contact" class="nav-link">Контакты</a></li>
+    </ul>
+    <div class="nav-right">
+      <span class="nav-user" id="navUser"></span>
+      <button class="nav-logout" id="navLogout">Выйти</button>
+      <button class="burger" id="burger">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="#hero" class="mob-link">Главная</a></li>
+      <li><a href="#about" class="mob-link">О нас</a></li>
+      <li><a href="#programs" class="mob-link">Программы</a></li>
+      <li><a href="#trainers" class="mob-link">Тренеры</a></li>
+      <li><a href="#stats" class="mob-link">Результаты</a></li>
+      <li><a href="#pricing" class="mob-link">Цены</a></li>
+      <li><a href="#contact" class="mob-link">Контакты</a></li>
+    </ul>
+  </div>
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- ═══ HERO ═══ -->
+    <section class="hero" id="hero">
+      <div class="hero-bg">
+        <div class="hero-grid"></div>
+        <div class="hero-orb orb1"></div>
+        <div class="hero-orb orb2"></div>
+        <div class="hero-orb orb3"></div>
+      </div>
+      <div class="hero-content">
+        <div class="hero-badge reveal">
+          <span class="badge-dot"></span> Live тренировки каждый день
+        </div>
+        <h1 class="hero-title reveal">
+          <span class="line">TRAIN</span>
+          <span class="line accent-line">BEYOND</span>
+          <span class="line">LIMITS</span>
+        </h1>
+        <p class="hero-sub reveal">Персональные онлайн тренировки с лучшими атлетами.<br>Без зала. Без ограничений. Только результат.</p>
+        <div class="hero-cta reveal">
+          <a href="#programs" class="btn-primary">
+            <span>Начать сейчас</span>
+            <div class="btn-glow"></div>
+          </a>
+          <a href="#about" class="btn-ghost">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4V8z"/></svg>
+            Смотреть видео
+          </a>
+        </div>
+        <div class="hero-numbers reveal">
+          <div class="hero-num">
+            <span class="num-val" data-target="12000">0</span>
+            <span class="num-label">Участников</span>
+          </div>
+          <div class="hero-divider"></div>
+          <div class="hero-num">
+            <span class="num-val" data-target="340">0</span>
+            <span class="num-label">Программ</span>
+          </div>
+          <div class="hero-divider"></div>
+          <div class="hero-num">
+            <span class="num-val" data-target="98">0</span><span class="pct">%</span>
+            <span class="num-label">Довольных</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card-stack">
+          <div class="hcard hcard1">
+            <div class="hcard-icon">🔥</div>
+            <div class="hcard-text">
+              <strong>Сжигание жира</strong>
+              <span>−5 кг за месяц</span>
+            </div>
+          </div>
+          <div class="hcard hcard2">
+            <div class="hcard-icon">💪</div>
+            <div class="hcard-text">
+              <strong>Набор массы</strong>
+              <span>+8 кг мышц</span>
+            </div>
+          </div>
+          <div class="hcard hcard3">
+            <div class="hcard-icon">⚡</div>
+            <div class="hcard-text">
+              <strong>Выносливость</strong>
+              <span>×3 энергии</span>
+            </div>
+          </div>
+          <div class="hero-ring ring1"></div>
+          <div class="hero-ring ring2"></div>
+        </div>
+      </div>
+      <div class="scroll-indicator">
+        <div class="scroll-line"></div>
+        <span>Скролл</span>
+      </div>
+    </section>
+
+    <!-- ═══ TICKER ═══ -->
+    <div class="ticker-wrap">
+      <div class="ticker-track">
+        <span>ОНЛАЙН ТРЕНИРОВКИ</span><span class="tick-dot">✦</span>
+        <span>ПЕРСОНАЛЬНЫЙ ТРЕНЕР</span><span class="tick-dot">✦</span>
+        <span>ЖИВЫЕ ЭФИРЫ</span><span class="tick-dot">✦</span>
+        <span>ПЛАН ПИТАНИЯ</span><span class="tick-dot">✦</span>
+        <span>24/7 ПОДДЕРЖКА</span><span class="tick-dot">✦</span>
+        <span>РЕЗУЛЬТАТ ГАРАНТИРОВАН</span><span class="tick-dot">✦</span>
+        <span>ОНЛАЙН ТРЕНИРОВКИ</span><span class="tick-dot">✦</span>
+        <span>ПЕРСОНАЛЬНЫЙ ТРЕНЕР</span><span class="tick-dot">✦</span>
+        <span>ЖИВЫЕ ЭФИРЫ</span><span class="tick-dot">✦</span>
+        <span>ПЛАН ПИТАНИЯ</span><span class="tick-dot">✦</span>
+        <span>24/7 ПОДДЕРЖКА</span><span class="tick-dot">✦</span>
+        <span>РЕЗУЛЬТАТ ГАРАНТИРОВАН</span><span class="tick-dot">✦</span>
+      </div>
+    </div>
+
+    <!-- ═══ ABOUT ═══ -->
+    <section class="about" id="about">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-left">
+            <div class="section-tag reveal">О нас</div>
+            <h2 class="section-title reveal">Фитнес нового<br><em>поколения</em></h2>
+            <p class="about-text reveal">APEX — это платформа, которая объединяет профессиональных тренеров и тех, кто готов изменить свою жизнь. Мы верим, что результат не зависит от наличия зала — только от желания и правильного подхода.</p>
+            <div class="about-features reveal">
+              <div class="feat-item">
+                <div class="feat-icon">🎯</div>
+                <div>
+                  <strong>Персонализация</strong>
+                  <p>Каждая программа адаптируется под тебя</p>
+                </div>
+              </div>
+              <div class="feat-item">
+                <div class="feat-icon">📱</div>
+                <div>
+                  <strong>Любое устройство</strong>
+                  <p>Тренируйся с телефона, планшета или ПК</p>
+                </div>
+              </div>
+              <div class="feat-item">
+                <div class="feat-icon">🏆</div>
+                <div>
+                  <strong>Сертификация</strong>
+                  <p>Получай значки за достижения</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="about-right reveal">
+            <div class="about-visual">
+              <div class="av-main">
+                <div class="av-circle"></div>
+                <div class="av-icon">🏋️</div>
+                <div class="av-badge badge-top">PRO</div>
+                <div class="av-badge badge-bot">LIVE</div>
+              </div>
+              <div class="av-stat st1">
+                <span class="st-val">4.9★</span>
+                <span class="st-label">Рейтинг</span>
+              </div>
+              <div class="av-stat st2">
+                <span class="st-val">500+</span>
+                <span class="st-label">Тренировок</span>
+              </div>
+              <div class="av-lines">
+                <div class="avl avl1"></div>
+                <div class="avl avl2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ PROGRAMS ═══ -->
+    <section class="programs" id="programs">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="section-tag">Программы</div>
+          <h2 class="section-title">Выбери <em>своё</em> направление</h2>
+        </div>
+        <div class="prog-grid">
+
+          <div class="prog-card reveal" data-delay="0">
+            <div class="prog-bg bg1"></div>
+            <div class="prog-num">01</div>
+            <div class="prog-icon">🔥</div>
+            <h3>Жиросжигание</h3>
+            <p>Высокоинтенсивные тренировки для максимального сжигания калорий и рельефа тела</p>
+            <div class="prog-meta">
+              <span>8 недель</span>
+              <span>5 дней/нед</span>
+              <span>Любой уровень</span>
+            </div>
+            <a href="#pricing" class="prog-link">Начать →</a>
+          </div>
+
+          <div class="prog-card reveal" data-delay="100">
+            <div class="prog-bg bg2"></div>
+            <div class="prog-num">02</div>
+            <div class="prog-icon">💪</div>
+            <h3>Набор массы</h3>
+            <p>Силовые тренировки с прогрессивной нагрузкой для роста мышечной массы</p>
+            <div class="prog-meta">
+              <span>12 недель</span>
+              <span>4 дня/нед</span>
+              <span>Средний+</span>
+            </div>
+            <a href="#pricing" class="prog-link">Начать →</a>
+          </div>
+
+          <div class="prog-card reveal" data-delay="200">
+            <div class="prog-bg bg3"></div>
+            <div class="prog-num">03</div>
+            <div class="prog-icon">🧘</div>
+            <h3>Гибкость & Йога</h3>
+            <p>Растяжка, дыхание и медитация для гармонии тела и разума</p>
+            <div class="prog-meta">
+              <span>4 недели</span>
+              <span>7 дней/нед</span>
+              <span>Для всех</span>
+            </div>
+            <a href="#pricing" class="prog-link">Начать →</a>
+          </div>
+
+          <div class="prog-card reveal" data-delay="300">
+            <div class="prog-bg bg4"></div>
+            <div class="prog-num">04</div>
+            <div class="prog-icon">⚡</div>
+            <h3>Функциональный</h3>
+            <p>Упражнения для развития силы, скорости и координации в повседневной жизни</p>
+            <div class="prog-meta">
+              <span>6 недель</span>
+              <span>3 дня/нед</span>
+              <span>Любой уровень</span>
+            </div>
+            <a href="#pricing" class="prog-link">Начать →</a>
+          </div>
+
+          <div class="prog-card reveal" data-delay="400">
+            <div class="prog-bg bg5"></div>
+            <div class="prog-num">05</div>
+            <div class="prog-icon">🏃</div>
+            <h3>Кардио Марафон</h3>
+            <p>Подготовка к забегам и улучшение сердечно-сосудистой выносливости</p>
+            <div class="prog-meta">
+              <span>10 недель</span>
+              <span>6 дней/нед</span>
+              <span>Средний+</span>
+            </div>
+            <a href="#pricing" class="prog-link">Начать →</a>
+          </div>
+
+          <div class="prog-card prog-card--cta reveal" data-delay="500">
+            <div class="prog-cta-text">Не знаешь с чего начать?</div>
+            <a href="#contact" class="btn-primary">Получить план</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ STATS ═══ -->
+    <section class="stats-section" id="stats">
+      <div class="stats-bg">
+        <div class="stats-orb"></div>
+      </div>
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="section-tag light">Результаты</div>
+          <h2 class="section-title light">Цифры <em>говорят</em> сами</h2>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-block reveal">
+            <div class="stat-ring">
+              <svg viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="40" class="ring-bg"/>
+                <circle cx="50" cy="50" r="40" class="ring-fill" data-pct="92" stroke-dasharray="251.2" stroke-dashoffset="251.2"/>
+              </svg>
+              <span class="stat-num" data-target="92">0</span><span>%</span>
+            </div>
+            <p>достигают цели за 3 месяца</p>
+          </div>
+          <div class="stat-block reveal">
+            <div class="stat-ring">
+              <svg viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="40" class="ring-bg"/>
+                <circle cx="50" cy="50" r="40" class="ring-fill" data-pct="85" stroke-dasharray="251.2" stroke-dashoffset="251.2"/>
+              </svg>
+              <span class="stat-num" data-target="85">0</span><span>%</span>
+            </div>
+            <p>рекомендуют друзьям</p>
+          </div>
+          <div class="stat-block reveal">
+            <div class="stat-ring">
+              <svg viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="40" class="ring-bg"/>
+                <circle cx="50" cy="50" r="40" class="ring-fill" data-pct="78" stroke-dasharray="251.2" stroke-dashoffset="251.2"/>
+              </svg>
+              <span class="stat-num" data-target="78">0</span><span>%</span>
+            </div>
+            <p>продолжают после курса</p>
+          </div>
+        </div>
+
+        <div class="reviews-row">
+          <div class="review-card reveal">
+            <div class="rev-stars">★★★★★</div>
+            <p>"Похудела на 12 кг за 2 месяца. Тренер всегда на связи, программа чёткая. APEX — это огонь!"</p>
+            <div class="rev-author">
+              <div class="rev-avatar">А</div>
+              <div><strong>Алина К.</strong><span>Алматы</span></div>
+            </div>
+          </div>
+          <div class="review-card reveal">
+            <div class="rev-stars">★★★★★</div>
+            <p>"Наконец нашёл программу, которая реально работает. Прирост массы +7 кг за квартал. Рекомендую всем!"</p>
+            <div class="rev-author">
+              <div class="rev-avatar">Д</div>
+              <div><strong>Данияр М.</strong><span>Астана</span></div>
+            </div>
+          </div>
+          <div class="review-card reveal">
+            <div class="rev-stars">★★★★★</div>
+            <p>"Гибкость выросла невероятно. Я никогда не думала, что смогу делать шпагат. Спасибо APEX!"</p>
+            <div class="rev-author">
+              <div class="rev-avatar">С</div>
+              <div><strong>Сабина Т.</strong><span>Шымкент</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ TRAINERS ═══ -->
+    <section class="trainers" id="trainers">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="section-tag">Команда</div>
+          <h2 class="section-title">Наши <em>тренеры</em></h2>
+        </div>
+        <div class="trainers-grid">
+          <div class="trainer-card reveal">
+            <div class="trainer-photo tp1">
+              <div class="tp-overlay"></div>
+              <div class="tp-emoji">🦁</div>
+            </div>
+            <div class="trainer-info">
+              <h3>Максим Волков</h3>
+              <span class="trainer-spec">Силовые тренировки</span>
+              <p>10 лет опыта. Мастер спорта по тяжёлой атлетике. Тренировал сборную Казахстана.</p>
+              <div class="trainer-tags">
+                <span>Сила</span><span>Масса</span><span>Функционал</span>
+              </div>
+            </div>
+          </div>
+          <div class="trainer-card reveal">
+            <div class="trainer-photo tp2">
+              <div class="tp-overlay"></div>
+              <div class="tp-emoji">🌟</div>
+            </div>
+            <div class="trainer-info">
+              <h3>Айгерим Сатова</h3>
+              <span class="trainer-spec">Йога & Растяжка</span>
+              <p>Сертифицированный инструктор RYT-500. 8 лет практики. Специализация — Хатха и Виньяса.</p>
+              <div class="trainer-tags">
+                <span>Йога</span><span>Медитация</span><span>Гибкость</span>
+              </div>
+            </div>
+          </div>
+          <div class="trainer-card reveal">
+            <div class="trainer-photo tp3">
+              <div class="tp-overlay"></div>
+              <div class="tp-emoji">⚡</div>
+            </div>
+            <div class="trainer-info">
+              <h3>Тимур Асанов</h3>
+              <span class="trainer-spec">HIIT & Кардио</span>
+              <p>Бывший профессиональный боксёр. 12 лет в фитнесе. Специалист по жиросжиганию.</p>
+              <div class="trainer-tags">
+                <span>HIIT</span><span>Бокс</span><span>Кардио</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ PRICING ═══ -->
+    <section class="pricing" id="pricing">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="section-tag">Тарифы</div>
+          <h2 class="section-title">Инвестиция <em>в себя</em></h2>
+        </div>
+        <div class="pricing-grid">
+          <div class="price-card reveal">
+            <div class="price-name">Старт</div>
+            <div class="price-amount"><span class="price-cur">₸</span>4 900<span class="price-per">/мес</span></div>
+            <ul class="price-features">
+              <li>✓ Доступ к 50+ видео</li>
+              <li>✓ Базовый план питания</li>
+              <li>✓ Сообщество APEX</li>
+              <li>✗ Живые тренировки</li>
+              <li>✗ Персональный тренер</li>
+            </ul>
+            <a href="#contact" class="price-btn">Выбрать</a>
+          </div>
+          <div class="price-card price-card--featured reveal">
+            <div class="price-badge">Популярный</div>
+            <div class="price-name">PRO</div>
+            <div class="price-amount"><span class="price-cur">₸</span>12 900<span class="price-per">/мес</span></div>
+            <ul class="price-features">
+              <li>✓ Все программы без ограничений</li>
+              <li>✓ Живые тренировки 3×/нед</li>
+              <li>✓ Персональный план питания</li>
+              <li>✓ Чат с тренером</li>
+              <li>✗ Личные сессии 1:1</li>
+            </ul>
+            <a href="#contact" class="price-btn price-btn--main">Выбрать</a>
+          </div>
+          <div class="price-card reveal">
+            <div class="price-name">ELITE</div>
+            <div class="price-amount"><span class="price-cur">₸</span>29 900<span class="price-per">/мес</span></div>
+            <ul class="price-features">
+              <li>✓ Всё из PRO</li>
+              <li>✓ 8 личных сессий 1:1</li>
+              <li>✓ Анализ прогресса</li>
+              <li>✓ Приоритетная поддержка</li>
+              <li>✓ Доступ к мастер-классам</li>
+            </ul>
+            <a href="#contact" class="price-btn">Выбрать</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CONTACT ═══ -->
+    <section class="contact-section" id="contact">
+      <div class="container">
+        <div class="contact-grid">
+          <div class="contact-left reveal">
+            <div class="section-tag">Контакты</div>
+            <h2 class="section-title">Готов начать?<br><em>Напиши нам</em></h2>
+            <p>Ответим в течение 30 минут и подберём программу специально для тебя.</p>
+            <div class="contact-links">
+              <a href="tel:+77001234567" class="c-link">
+                <span class="c-icon">📞</span>+7 700 123-45-67
+              </a>
+              <a href="mailto:hello@apex.kz" class="c-link">
+                <span class="c-icon">✉️</span>hello@apex.kz
+              </a>
+              <a href="#" class="c-link">
+                <span class="c-icon">📍</span>Алматы, ул. Достык 12
+              </a>
+            </div>
+          </div>
+          <div class="contact-right reveal">
+            <form class="contact-form" id="contactForm">
+              <div class="field-group">
+                <input type="text" id="cName" placeholder=" " required />
+                <label for="cName">Ваше имя</label>
+                <span class="field-line"></span>
+              </div>
+              <div class="field-group">
+                <input type="email" id="cEmail" placeholder=" " required />
+                <label for="cEmail">Email</label>
+                <span class="field-line"></span>
+              </div>
+              <div class="field-group">
+                <select id="cProgram">
+                  <option value="" disabled selected>Выберите программу</option>
+                  <option>Жиросжигание</option>
+                  <option>Набор массы</option>
+                  <option>Гибкость & Йога</option>
+                  <option>Функциональный</option>
+                  <option>Кардио Марафон</option>
+                </select>
+                <span class="field-line"></span>
+              </div>
+              <div class="field-group">
+                <textarea id="cMsg" placeholder=" " rows="3"></textarea>
+                <label for="cMsg">Сообщение</label>
+                <span class="field-line"></span>
+              </div>
+              <button type="submit" class="btn-primary full-w">
+                <span>Отправить заявку</span>
+                <div class="btn-glow"></div>
+              </button>
+              <div class="form-success" id="formSuccess">✓ Заявка отправлена! Мы свяжемся с вами скоро.</div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">APEX</div>
+          <p>Онлайн тренировки нового поколения. Твой путь к лучшей версии себя начинается здесь.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Программы</h4>
+          <ul>
+            <li><a href="#programs">Жиросжигание</a></li>
+            <li><a href="#programs">Набор массы</a></li>
+            <li><a href="#programs">Гибкость & Йога</a></li>
+            <li><a href="#programs">Функциональный</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Компания</h4>
+          <ul>
+            <li><a href="#about">О нас</a></li>
+            <li><a href="#trainers">Тренеры</a></li>
+            <li><a href="#pricing">Цены</a></li>
+            <li><a href="#contact">Контакты</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Соцсети</h4>
+          <div class="social-links">
+            <a href="#" class="social-btn">TG</a>
+            <a href="#" class="social-btn">IG</a>
+            <a href="#" class="social-btn">YT</a>
+            <a href="#" class="social-btn">TK</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 APEX. Все права защищены.</span>
+        <span>Сделано с ❤️ в Алматы</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="ww.js"></script>
 </body>
 </html>
